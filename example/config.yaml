@@ -1,0 +1,23 @@
+COMMON: &common
+  SECRET_KEY: insecure
+  SQLALCHEMY_DATABASE_URI: 'postgresql://localhost:5432/sample'
+  ADMIN_CREDENTIALS: 'admin,password'
+  SECURITY_TRACKABLE: True
+
+DEVELOPMENT: &development
+  <<: *common
+  DEBUG: True
+  SQLALCHEMY_DATABASE_URI: 'postgresql://localhost:5432/sample_dev'
+
+PRODUCTION: &production
+  <<: *common
+  DEBUG: False
+  SECURITY_PASSWORD_HASH: bcrypt
+  JSONIFY_PRETTYPRINT_REGULAR: True
+
+TESTING: &testing
+  <<: *common
+  SERVER_NAME: 'locahost'
+  SQLALCHEMY_DATABASE_URI: 'sqlite:///:memory:'
+  TESTING: True
+
