@@ -16,7 +16,7 @@ setup(
     author_email='yoophi@gmail.com',
     description='Very short description',
     long_description=__doc__,
-    py_modules=['flask_config'],
+    packages=['flask_config'],
     zip_safe=False,
     include_package_data=True,
     platforms='any',
