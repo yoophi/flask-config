@@ -55,7 +55,8 @@ class Config(object):
 
 
 class ExtendedConfig(BaseConfig):
-    def from_yaml(self, config_name=None, file_name='config.yaml'):
+    def from_yaml(self, config_name=None, file_name='config.yaml',
+                  search_paths=None):
         env = os.environ.get('FLASK_ENV', 'development').upper()
         self['ENVIRONMENT'] = env.lower()
 
@@ -63,16 +64,21 @@ class ExtendedConfig(BaseConfig):
             config_name = env
 
         config_name = config_name.upper()
+        if search_paths is None:
+            search_paths = (self.root_path, )
 
-        for path in ('/etc', self.root_path,):
+        for path in search_paths:
             config_file = os.path.join(path, file_name)
 
             try:
                 with open(config_file) as f:
+                    print 'open >', config_file
                     c = yaml.load(f)
 
                 for key, value in c[config_name].iteritems():
                     if key.isupper():
                         self[key] = value
+
+                break
             except Exception as e:
                 pass

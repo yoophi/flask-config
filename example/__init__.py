@@ -8,7 +8,8 @@ config = Config(app)
 # config = Config()
 # config.init_app(app)
 
-app.config.from_yaml('development')
+app.config.from_yaml('development',
+                     search_paths=('/tmp/example', app.root_path))
 
 config.FOO = 'BAR'
 assert app.config['FOO'] == 'BAR'
