@@ -4,11 +4,17 @@ from flask.ext.config import Config
 app = Flask(__name__)
 config = Config(app)
 
-# or make instance and call Config.init_app(app)
+# # or make instance and call Config.init_app(app)
 # config = Config()
 # config.init_app(app)
 
 app.config.from_yaml('development')
+
+config.FOO = 'BAR'
+assert app.config['FOO'] == 'BAR'
+
+app.config['BAZ'] = 'BAZ'
+assert config.BAZ == 'BAZ'
 
 
 @app.route('/')
