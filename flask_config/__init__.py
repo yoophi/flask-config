@@ -4,8 +4,11 @@ Flask Extended Config
 """
 
 import os
+import click
+
 import yaml
 from flask import Config as BaseConfig
+from flask.ext.script import Command, Option
 
 
 class Config(object):
@@ -24,7 +27,7 @@ class Config(object):
         self.config[key] = value
 
     def __getattr__(self, item):
-        if item in ('app', 'config', 'init_app', '_make_config', ):
+        if item in ('app', 'config', 'init_app', '_make_config',):
             super(Config, self).__getattr__(item)
 
         try:
@@ -65,14 +68,13 @@ class ExtendedConfig(BaseConfig):
 
         config_name = config_name.upper()
         if search_paths is None:
-            search_paths = (self.root_path, )
+            search_paths = (self.root_path,)
 
         for path in search_paths:
             config_file = os.path.join(path, file_name)
 
             try:
                 with open(config_file) as f:
-                    print 'open >', config_file
                     c = yaml.load(f)
 
                 for key, value in c[config_name].iteritems():
@@ -82,3 +84,33 @@ class ExtendedConfig(BaseConfig):
                 break
             except Exception as e:
                 pass
+
+
+class InitConfig(Command):
+    def __init__(self, directory=None, config_filename='config.yaml', config_contents=None):
+        from os.path import expanduser
+
+        if directory:
+            self.directory = directory
+        else:
+            self.directory = expanduser("~")
+
+        self.config_filename = config_filename
+        self.config_contents = config_contents
+
+    def get_options(self):
+        return [
+            Option('-d', '--directory', dest='directory', default=self.directory),
+        ]
+
+    def run(self, directory):
+        if directory and not os.path.exists(directory):
+            os.makedirs(directory)
+
+        config_filename = os.path.join(directory, self.config_filename)
+
+        if os.path.isfile(config_filename):
+            click.confirm("File already exists at '%s', overwrite?" % click.format_filename(config_filename), abort=True)
+
+        with click.open_file(config_filename, 'wb') as fp:
+            fp.write(self.config_contents)

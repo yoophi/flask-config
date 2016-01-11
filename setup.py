@@ -21,7 +21,9 @@ setup(
     include_package_data=True,
     platforms='any',
     install_requires=[
+        'click==6.2',
         'Flask',
+        'Flask-Script',
         'PyYAML==3.11',
     ],
     classifiers=[
