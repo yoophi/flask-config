@@ -4,12 +4,33 @@ Flask-Config
 
 This is the description for that library
 """
+import os
+import re
 from setuptools import setup
 
 
+def find_version(fname):
+    '''Attempts to find the version number in the file names fname.
+    Raises RuntimeError if not found.
+    '''
+    version = ''
+    with open(fname, 'r') as fp:
+        reg = re.compile(r'__version__ = [\'"]([^\'"]*)[\'"]')
+        for line in fp:
+            m = reg.match(line)
+            if m:
+                version = m.group(1)
+                break
+    if not version:
+        raise RuntimeError('Cannot find version information')
+    return version
+
+
+__version__ = find_version(os.path.join("flask_config", "__init__.py"))
+
 setup(
     name='Flask-Config',
-    version='0.1',
+    version=__version__,
     url='http://github.com/yoophi/flask-config/',
     license='BSD',
     author='Pyunghyuk Yoo',
@@ -36,4 +57,3 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ]
 )
-

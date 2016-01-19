@@ -10,6 +10,8 @@ import yaml
 from flask import Config as BaseConfig
 from flask.ext.script import Command, Option
 
+__version__ = '0.1.1'
+
 
 class Config(object):
     app = None
@@ -85,6 +87,16 @@ class ExtendedConfig(BaseConfig):
             except Exception as e:
                 pass
 
+    def from_heroku(self, mappings={}, keys=[]):
+        # Register Config from Environ Variables
+        for k, v in mappings.iteritems():
+            if k in os.environ:
+                self[v] = os.environ[k]
+
+        for k in keys:
+            if k in os.environ:
+                self[k] = os.environ[k]
+
 
 class InitConfig(Command):
     def __init__(self, directory=None, config_filename='config.yaml', config_contents=None):
@@ -110,7 +122,8 @@ class InitConfig(Command):
         config_filename = os.path.join(directory, self.config_filename)
 
         if os.path.isfile(config_filename):
-            click.confirm("File already exists at '%s', overwrite?" % click.format_filename(config_filename), abort=True)
+            click.confirm("File already exists at '%s', overwrite?" % click.format_filename(config_filename),
+                          abort=True)
 
         with click.open_file(config_filename, 'wb') as fp:
             fp.write(self.config_contents)
