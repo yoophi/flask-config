@@ -1,6 +1,6 @@
 """
-Flask-Config
--------------
+Flask-Config-Helper
+-------------------
 
 This is the description for that library
 """
@@ -26,18 +26,18 @@ def find_version(fname):
     return version
 
 
-__version__ = find_version(os.path.join("flask_config", "__init__.py"))
+__version__ = find_version(os.path.join("flask_config_helper", "__init__.py"))
 
 setup(
     name='Flask-Config',
     version=__version__,
-    url='http://github.com/yoophi/flask-config/',
+    url='http://github.com/yoophi/flask-config-helper/',
     license='BSD',
     author='Pyunghyuk Yoo',
     author_email='yoophi@gmail.com',
     description='Very short description',
     long_description=__doc__,
-    packages=['flask_config'],
+    packages=['flask_config_helper'],
     zip_safe=False,
     include_package_data=True,
     platforms='any',

@@ -1,6 +1,6 @@
 import os
 from flask.ext.script import Manager
-from flask.ext.config import InitConfig
+from flask.ext.config_helper import InitConfig
 from . import app
 
 
