@@ -2,7 +2,7 @@
 Flask-Config-Helper
 -------------------
 
-This is the description for that library
+Flask configuration helper support config from YAML file, from heroku env variables.
 """
 import os
 import re
@@ -32,10 +32,10 @@ setup(
     name='Flask-Config',
     version=__version__,
     url='http://github.com/yoophi/flask-config-helper/',
-    license='BSD',
+    license='MIT License',
     author='Pyunghyuk Yoo',
     author_email='yoophi@gmail.com',
-    description='Very short description',
+    description='Flask configuration helper',
     long_description=__doc__,
     packages=['flask_config_helper'],
     zip_safe=False,
@@ -53,7 +53,6 @@ setup(
         'License :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ]
 )
