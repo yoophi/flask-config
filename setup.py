@@ -29,7 +29,7 @@ def find_version(fname):
 __version__ = find_version(os.path.join("flask_config_helper", "__init__.py"))
 
 setup(
-    name='Flask-Config',
+    name='Flask-Config-Helper',
     version=__version__,
     url='http://github.com/yoophi/flask-config-helper/',
     license='MIT License',
@@ -50,7 +50,7 @@ setup(
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
-        'License :: MIT License',
+        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules'
