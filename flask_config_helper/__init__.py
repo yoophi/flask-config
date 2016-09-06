@@ -8,9 +8,9 @@ import click
 
 import yaml
 from flask import Config as BaseConfig
-from flask.ext.script import Command, Option
+from flask_script import Command, Option
 
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 
 class Config(object):
