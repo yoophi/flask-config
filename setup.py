@@ -45,7 +45,7 @@ setup(
         'click==6.2',
         'Flask',
         'Flask-Script',
-        'PyYAML==3.11',
+        'PyYAML==5.4',
     ],
     classifiers=[
         'Environment :: Web Environment',
